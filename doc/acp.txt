@@ -1,0 +1,38 @@
+*sudo.vim*        Run `sudo` from Vim/Neovim
+
+
+==============================================================================
+CONTENTS                                                *sudo-contents*
+
+  1. Introduction                                       |sudo-introduction|
+  2. Commands                                           |sudo-commands|
+
+==============================================================================
+1. Introduction                                         *sudo-introduction*
+
+This plugin provides a convenient way to execute shell commands with sudo
+(superuser do) privileges directly from within Vim or Neovim. It handles
+password prompting and securely passes the password to sudo.
+
+==============================================================================
+2. Commands                                             *sudo-commands*
+
+*:Sudo* {cmd} [args]
+    Executes the shell command {cmd} with sudo privileges.
+
+    The plugin will prompt for your sudo password. If the password is
+    incorrect, you will be prompted again for up to 3 attempts.
+
+    Examples: >vim
+    	:Sudo apt update
+    	:'<,'>Sudo tee /etc/some_file
+<
+	Any |cmdline-special| characters in {cmd} and [args] are expanded.
+
+:[range]Sudo cmd ~
+	Same as |:Sudo|, but pass lines in |:range| as standard input to {cmd}.
+
+	For example, to write the current buffer to a file that requires sudo permissions: >vim
+		:%Sudo tee % > /dev/null
+<
+	(the first `%` is the range (the whole buffer), the second `%` is the name of the current buffer).
